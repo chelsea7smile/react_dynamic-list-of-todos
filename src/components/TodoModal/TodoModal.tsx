@@ -4,17 +4,17 @@ import { Todo } from '../../types/Todo';
 import { User } from '../../types/User';
 import { getUser } from '../../api';
 type Props = {
-  todos: Todo | null;
+  todo: Todo | null;
   onClose: () => void;
 };
-export const TodoModal: React.FC<Props> = ({ todos, onClose }) => {
+export const TodoModal: React.FC<Props> = ({ todo: todo, onClose }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    if (todos) {
-      getUser(todos.userId).then(setUser);
+    if (todo) {
+      getUser(todo.userId).then(setUser);
     }
-  }, [todos]);
+  }, [todo]);
 
   const handleCloseModal = () => {
     onClose();
@@ -34,7 +34,7 @@ export const TodoModal: React.FC<Props> = ({ todos, onClose }) => {
               className="modal-card-title has-text-weight-medium"
               data-cy="modal-header"
             >
-              Todo #{todos?.id}
+              Todo #{todo?.id}
             </div>
 
             {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
@@ -48,11 +48,11 @@ export const TodoModal: React.FC<Props> = ({ todos, onClose }) => {
 
           <div className="modal-card-body">
             <p className="block" data-cy="modal-title">
-              {todos?.title}
+              {todo?.title}
             </p>
 
             <p className="block" data-cy="modal-user">
-              {todos?.completed ? (
+              {todo?.completed ? (
                 <strong className="has-text-success">Done</strong>
               ) : (
                 <strong className="has-text-danger">Planned</strong>
@@ -60,7 +60,7 @@ export const TodoModal: React.FC<Props> = ({ todos, onClose }) => {
 
               {' by '}
 
-              <a href="mailto:{user?.email}">{user?.name}</a>
+              <a href={`mailto:${user?.email}`}>{user?.name}</a>            
             </p>
           </div>
         </div>

@@ -63,7 +63,7 @@ export const App: React.FC = () => {
       );
     }
 
-    if (errorMessage && todos?.length === 0) {
+    if (errorMessage) {
       return (
         <div>
           <p>{errorMessage}</p>
@@ -98,7 +98,7 @@ export const App: React.FC = () => {
       </div>
 
       {selectedTodo && (
-        <TodoModal todos={selectedTodo} onClose={() => setSelectedTodo(null)} />
+        <TodoModal todo={selectedTodo} onClose={() => setSelectedTodo(null)} />
       )}
     </>
   );
